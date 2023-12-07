@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bimdnqcr0sjdm"]
+
+[ext_resource type="Script" path="res://sphere.gd" id="1_lxkow"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oj1u5"]
+bounce = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1g005"]
+albedo_color = Color(0.117647, 0.701961, 0.976471, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ig501"]
+material = SubResource("StandardMaterial3D_1g005")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ne5nb"]
+
+[node name="RigidBody3D" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_oj1u5")
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_lxkow")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ig501")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ne5nb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
