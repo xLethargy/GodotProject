@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://chgaakiv1m7e6"]
+
+[ext_resource type="PackedScene" uid="uid://cu2eypvm60v48" path="res://notafrog2smooth.blend" id="1_5g85x"]
+[ext_resource type="Script" path="res://movement.gd" id="1_6pwpi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_87ew2"]
+size = Vector3(0.881756, 2.1047, 2.77234)
+
+[node name="Frog" type="CharacterBody3D"]
+script = ExtResource("1_6pwpi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0576476, -0.568223)
+shape = SubResource("BoxShape3D_87ew2")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="notafrog2smooth" parent="Pivot" instance=ExtResource("1_5g85x")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.0396476, -0.754223)
+
+[editable path="Pivot/notafrog2smooth"]
