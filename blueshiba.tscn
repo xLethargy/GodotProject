@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwlu5j0e5bn4y"]
+
+[ext_resource type="Script" path="res://Monster.gd" id="1_8x6wy"]
+[ext_resource type="PackedScene" uid="uid://bg4guqx6hq200" path="res://blueshiba.blend" id="1_wiv6d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3hwj3"]
+size = Vector3(0.76902, 2.17413, 2.67548)
+
+[node name="Shiba" type="CharacterBody3D" groups=["monster"]]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_8x6wy")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="blueshiba" parent="Pivot" instance=ExtResource("1_wiv6d")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00208664, 0, 0.338)
+shape = SubResource("BoxShape3D_3hwj3")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-0.505248, -1.36378, -2.15196, 1.0105, 2.72755, 4.30393)

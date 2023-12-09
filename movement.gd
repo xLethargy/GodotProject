@@ -13,8 +13,8 @@ var rotation_speed = 15.0
 func _physics_process(delta):
 	var direction = Vector3.ZERO
 	
-	if Input.is_action_pressed("sprint") and !Input.is_action_pressed("jump"):
-		speed = 20.0
+	if Input.is_action_pressed("sprint") and !Input.is_action_pressed("jump") and is_on_floor():
+		speed = 25.0
 	else:
 		speed = 13.0
 	
@@ -51,8 +51,6 @@ func _physics_process(delta):
 		var collision = get_slide_collision(index)
 		var collision_collider = collision.get_collider()
 		
-		
-		
 		if collision_collider != null and collision_collider.is_in_group("monster"):
 			var monster = collision_collider
 			
@@ -60,7 +58,7 @@ func _physics_process(delta):
 				monster.squash()
 				velocity.y = bounce_impulse
 
-func _on_area_3d_body_entered(body):
+func _on_area_3d_body_entered(_body):
 	die()
 
 func die():
