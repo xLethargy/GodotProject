@@ -16,7 +16,7 @@ func _on_mob_timer_timeout():
 	monster.initialise(monster_spawn_location.position, player_position)
 	
 	add_child(monster)
-	
-	
-	
-	
+
+
+func _on_frog_hit():
+	$MobTimer.stop()

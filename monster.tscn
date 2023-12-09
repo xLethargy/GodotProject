@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dohomn12lh6md" path="res://crooc.blend" id="2_x0fbx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ftt21"]
-size = Vector3(5.95044, 1.93091, 10)
+size = Vector3(5.95044, 1.40667, 10.7183)
 
 [node name="Monster" type="CharacterBody3D" groups=["monster"]]
 collision_layer = 2
@@ -18,7 +18,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502619, 0)
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.64313, 0.705846)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.988667, 0.360406)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.857607, 0.18084)
 shape = SubResource("BoxShape3D_ftt21")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]

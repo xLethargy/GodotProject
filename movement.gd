@@ -1,10 +1,11 @@
 extends CharacterBody3D
 
+signal hit
 
 @export var speed = 13.0
-@export var jump_impulse = 20.0
+@export var jump_impulse = 25.0
 @export var fall_accelaration = 75.0
-@export var bounce_impulse = 16.0
+@export var bounce_impulse = 20.0
 
 var velocity_in = Vector3.ZERO
 var rotation_speed = 15.0
@@ -40,7 +41,7 @@ func _physics_process(delta):
 	velocity.z = direction.z * speed
 	
 	if is_on_floor() and Input.is_action_pressed("jump"):
-		velocity.y += jump_impulse
+		velocity.y = jump_impulse
 	
 	velocity.y -= fall_accelaration * delta
 	
@@ -49,7 +50,8 @@ func _physics_process(delta):
 	for index in range(get_slide_collision_count()):
 		var collision = get_slide_collision(index)
 		var collision_collider = collision.get_collider()
-		print (collision_collider)
+		
+		
 		
 		if collision_collider != null and collision_collider.is_in_group("monster"):
 			var monster = collision_collider
@@ -58,6 +60,12 @@ func _physics_process(delta):
 				monster.squash()
 				velocity.y = bounce_impulse
 
+func _on_area_3d_body_entered(body):
+	die()
 
-
+func die():
+	emit_signal("hit")
+	queue_free()
+	
+	
 

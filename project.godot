@@ -15,15 +15,15 @@ run/main_scene="res://GameScene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-GameManager="*res://game_manager.gd"
-
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=560
+window/size/viewport_height=480
+window/size/mode=2
 window/stretch/mode="viewport"
+window/layer_3="world"
+window/layer_2="enemies"
+window/layer_1="player"
 
 [input]
 
