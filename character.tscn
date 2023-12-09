@@ -3,15 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://cu2eypvm60v48" path="res://notafrog2smooth.blend" id="1_5g85x"]
 [ext_resource type="Script" path="res://movement.gd" id="1_6pwpi"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_87ew2"]
-size = Vector3(0.881756, 2.1047, 2.77234)
+[sub_resource type="SphereShape3D" id="SphereShape3D_jusqx"]
 
 [node name="Frog" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+collision_mask = 6
 script = ExtResource("1_6pwpi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0576476, -0.568223)
-shape = SubResource("BoxShape3D_87ew2")
+transform = Transform3D(3.03, 0, 0, 0, 3.03, 0, 0, 0, 3.03, 0, 0.00839424, -0.397681)
+shape = SubResource("SphereShape3D_jusqx")
 
 [node name="Pivot" type="Node3D" parent="."]
 
