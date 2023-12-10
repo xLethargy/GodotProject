@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://xrc0k8ogtcbe"]
+[gd_scene load_steps=5 format=3 uid="uid://xrc0k8ogtcbe"]
 
 [ext_resource type="Script" path="res://Monster.gd" id="1_n6yuw"]
 [ext_resource type="PackedScene" uid="uid://dohomn12lh6md" path="res://crooc.blend" id="2_x0fbx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ftt21"]
 size = Vector3(5.95044, 1.40667, 10.7183)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_18fbs"]
+size = Vector3(2.8786, 0.498535, 5.2337)
 
 [node name="Monster" type="CharacterBody3D" groups=["crocodile", "monster"]]
 collision_layer = 2
@@ -17,7 +20,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502619, 0)
 [node name="crooc" parent="Pivot" instance=ExtResource("2_x0fbx")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.64313, 0.705846)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="PlayerKillerDetection" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.857607, 0.18084)
 shape = SubResource("BoxShape3D_ftt21")
 
@@ -25,4 +28,14 @@ shape = SubResource("BoxShape3D_ftt21")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19959, 1.08016)
 aabb = AABB(-2.21445, -1.00782, -3.9987, 4.4289, 2.01563, 7.99743)
 
+[node name="SquashZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.79394, 0)
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SquashZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00979614, 0.250732, 0.185089)
+shape = SubResource("BoxShape3D_18fbs")
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
+[connection signal="body_entered" from="SquashZone" to="." method="_on_squash_zone_body_entered"]

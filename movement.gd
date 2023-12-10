@@ -7,7 +7,6 @@ signal hit
 @export var fall_accelaration = 75.0
 @export var bounce_impulse = 20.0
 
-var velocity_in = Vector3.ZERO
 var rotation_speed = 15.0
 
 func _physics_process(delta):
@@ -31,9 +30,6 @@ func _physics_process(delta):
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		
-		# snapping rotation
-		#$Pivot.look_at(position + direction, Vector3.UP)
-		
 		# smooth rotation
 		$Pivot.rotation.y = lerp_angle($Pivot.rotation.y, atan2( -direction.x , -direction.z), delta * rotation_speed)
 	
@@ -45,19 +41,7 @@ func _physics_process(delta):
 	
 	velocity.y -= fall_accelaration * delta
 	
-	velocity_in = move_and_slide()
-	
-	for index in range(get_slide_collision_count()):
-		var collision = get_slide_collision(index)
-		var collision_collider = collision.get_collider()
-		
-		if collision_collider != null and collision_collider.is_in_group("monster"):
-			var monster = collision_collider
-			
-			if Vector3.UP.dot(collision.get_normal()) > 0.1:
-				monster.squash()
-				velocity.y = bounce_impulse
-				
+	move_and_slide()
 
 func _on_area_3d_body_entered(_body):
 	die()
@@ -65,6 +49,7 @@ func _on_area_3d_body_entered(_body):
 func die():
 	emit_signal("hit")
 	queue_free()
-	
-	
 
+func _on_squash_detection_body_entered(body):
+	if body != null and body.is_in_group("monster"):
+		velocity.y = bounce_impulse

@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://chgaakiv1m7e6"]
+[gd_scene load_steps=6 format=3 uid="uid://chgaakiv1m7e6"]
 
 [ext_resource type="PackedScene" uid="uid://cu2eypvm60v48" path="res://notafrog2smooth.blend" id="1_5g85x"]
 [ext_resource type="Script" path="res://movement.gd" id="1_6pwpi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bj6np"]
-size = Vector3(0.406128, 0.727295, 0.979248)
+size = Vector3(0.406128, 0.0233155, 0.979248)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a5p0i"]
-size = Vector3(1.40063, 1, 3.147)
+size = Vector3(1.40063, 0.921143, 3.147)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sa5vd"]
+size = Vector3(1.422, 0.19873, 3.15552)
 
 [node name="Frog" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
@@ -15,7 +18,7 @@ collision_mask = 6
 script = ExtResource("1_6pwpi")
 
 [node name="PhysicalDetection" type="CollisionShape3D" parent="."]
-transform = Transform3D(3.03, 0, 0, 0, 3.03, 0, 0, 0, 3.03, -0.000184923, 0.176064, -0.422781)
+transform = Transform3D(3.03, 0, 0, 0, 3.03, 0, 0, 0, 3.03, -0.000184923, -0.890465, -0.422781)
 shape = SubResource("BoxShape3D_bj6np")
 
 [node name="Pivot" type="Node3D" parent="."]
@@ -31,9 +34,19 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxDetection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00476074, 0.755028, -0.722326)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00476074, 0.794457, -0.722326)
 shape = SubResource("BoxShape3D_a5p0i")
 
+[node name="SquashDetection" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.531277, 0)
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SquashDetection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0140991, -0.385986, -0.427612)
+shape = SubResource("BoxShape3D_sa5vd")
+
 [connection signal="body_entered" from="HitboxDetection" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="SquashDetection" to="." method="_on_squash_detection_body_entered"]
 
 [editable path="Pivot/notafrog2smooth"]

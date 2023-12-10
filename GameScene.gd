@@ -2,6 +2,7 @@ extends Node
 
 @export var monster_scene = preload("res://monster.tscn")
 @export var shiba_scene = preload("res://blueshiba.tscn")
+@export var bear_scene = preload("res://bear.tscn")
 
 var shiba_jump_time = false
 
@@ -11,14 +12,18 @@ func _ready():
 func _on_mob_timer_timeout():
 	var monster = monster_scene.instantiate()
 	var shiba = shiba_scene.instantiate()
+	var bear = bear_scene.instantiate()
 	
 	var shiba_spawn = randi_range(0, 11)
+	var bear_spawn = randi_range(0, 11)
 	
 	if (shiba_spawn == 10):
 		_intialise_and_add(shiba)
 	
-	_intialise_and_add(monster)
+	if (bear_spawn == 10):
+		_intialise_and_add(bear)
 	
+	_intialise_and_add(monster)
 
 func _on_frog_hit():
 	$MobTimer.stop()

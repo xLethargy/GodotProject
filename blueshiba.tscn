@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwlu5j0e5bn4y"]
+[gd_scene load_steps=5 format=3 uid="uid://dwlu5j0e5bn4y"]
 
 [ext_resource type="Script" path="res://Monster.gd" id="1_8x6wy"]
 [ext_resource type="PackedScene" uid="uid://bg4guqx6hq200" path="res://blueshiba.blend" id="1_wiv6d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3hwj3"]
 size = Vector3(0.76902, 2.17413, 2.67548)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ua0ky"]
+size = Vector3(0.704437, 0.351685, 2.60695)
 
 [node name="Shiba" type="CharacterBody3D" groups=["monster", "shiba"]]
 collision_layer = 2
@@ -16,7 +19,7 @@ script = ExtResource("1_8x6wy")
 [node name="blueshiba" parent="Pivot" instance=ExtResource("1_wiv6d")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="PlayerKillerDetection" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00208664, 0, 0.338)
 shape = SubResource("BoxShape3D_3hwj3")
 
@@ -24,7 +27,15 @@ shape = SubResource("BoxShape3D_3hwj3")
 aabb = AABB(-0.505248, -1.36378, -2.15196, 1.0105, 2.72755, 4.30393)
 
 [node name="ShibaJumperTimer" type="Timer" parent="."]
-wait_time = 0.5
 autostart = true
 
+[node name="SquashZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661424, 0.328147)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SquashZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00538635, 0.324158, 0.0169296)
+shape = SubResource("BoxShape3D_ua0ky")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
 [connection signal="timeout" from="ShibaJumperTimer" to="." method="_on_shiba_jumper_timer_timeout"]
+[connection signal="body_entered" from="SquashZone" to="." method="_on_squash_zone_body_entered"]

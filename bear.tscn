@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjwg5lyombrtf"]
+
+[ext_resource type="PackedScene" uid="uid://d4gydbenrq2tq" path="res://beaer2.blend" id="1_1th6d"]
+[ext_resource type="Script" path="res://Monster.gd" id="1_h23ke"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g3poc"]
+size = Vector3(1.94263, 3.06964, 4.49947)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s63k2"]
+size = Vector3(1.87292, 0.242065, 4.40472)
+
+[node name="Bear" type="CharacterBody3D" groups=["bear", "monster"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.244319, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_h23ke")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.589, 0)
+
+[node name="beaer2" parent="Pivot" instance=ExtResource("1_1th6d")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1.628, 0)
+
+[node name="PlayerKillerDetection" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.547, 0.207)
+shape = SubResource("BoxShape3D_g3poc")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.547, 0.207)
+aabb = AABB(-2, -2, -3, 4, 4, 6)
+
+[node name="SquashZone" type="Area3D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="Collision" type="CollisionShape3D" parent="SquashZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00250244, 3.10707, 0.205719)
+shape = SubResource("BoxShape3D_s63k2")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
+[connection signal="body_entered" from="SquashZone" to="." method="_on_squash_zone_body_entered"]
