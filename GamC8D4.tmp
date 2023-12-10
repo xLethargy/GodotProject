@@ -23,6 +23,8 @@ point_count = 5
 
 [node name="Node" type="Node"]
 script = ExtResource("1_vmna7")
+monster_scene = null
+shiba_scene = null
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

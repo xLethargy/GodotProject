@@ -57,6 +57,7 @@ func _physics_process(delta):
 			if Vector3.UP.dot(collision.get_normal()) > 0.1:
 				monster.squash()
 				velocity.y = bounce_impulse
+				
 
 func _on_area_3d_body_entered(_body):
 	die()

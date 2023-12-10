@@ -27,7 +27,8 @@ func _intialise_and_add(enemy):
 	
 	var player_position = Vector3 ($Frog.position.x, 0, $Frog.position.z)
 	
+	enemy.squashed.connect(Callable($UserInterface/ScoreLabel, "_on_enemy_squashed"))
+	
 	enemy.initialise(enemy_spawn_location.position, player_position)
 	
 	add_child(enemy)
-	pass

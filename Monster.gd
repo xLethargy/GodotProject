@@ -6,7 +6,7 @@ signal squashed
 @export var max_speed = 10
 
 
-
+var is_squashed = false
 var is_spinning = false
 var fall_accelaration = 75
 
@@ -32,8 +32,10 @@ func initialise(start_position, player_position):
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
 	
 func squash():
-	emit_signal("squashed")
-	queue_free()
+	if is_squashed == false:
+		is_squashed = true
+		emit_signal("squashed")
+		queue_free()
 
 func _on_visible_on_screen_notifier_3d_screen_exited():
 	queue_free()
