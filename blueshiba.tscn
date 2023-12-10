@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_3hwj3"]
 size = Vector3(0.76902, 2.17413, 2.67548)
 
-[node name="Shiba" type="CharacterBody3D" groups=["monster"]]
+[node name="Shiba" type="CharacterBody3D" groups=["monster", "shiba"]]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_8x6wy")
@@ -22,3 +22,9 @@ shape = SubResource("BoxShape3D_3hwj3")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
 aabb = AABB(-0.505248, -1.36378, -2.15196, 1.0105, 2.72755, 4.30393)
+
+[node name="ShibaJumperTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="ShibaJumperTimer" to="." method="_on_shiba_jumper_timer_timeout"]
