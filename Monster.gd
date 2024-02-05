@@ -9,8 +9,10 @@ var is_spinning = false
 var fall_accelaration = 75
 var bear_health = 5
 
-func _physics_process(delta):
+func _process(delta):
 	_shiba_spinner(delta)
+
+func _physics_process(_delta):
 	move_and_slide()
 
 func initialise(start_position, player_position):
@@ -33,10 +35,10 @@ func _on_shiba_jumper_timer_timeout():
 
 func _shiba_spinner(delta):
 	if is_spinning:
-		rotate_y(0.1)
+		rotate_y(5 * delta)
 		velocity.y -= fall_accelaration * delta
 
-func _on_squash_zone_body_entered(body):
+func _on_squash_zone_body_entered(_body):
 	bear_health -= 1
 	
 	if !self.is_in_group("bear"):
@@ -50,3 +52,6 @@ func squash():
 
 func _on_visible_on_screen_notifier_3d_screen_exited():
 	queue_free()
+
+func _on_bear_spinner_timer_timeout():
+	pass

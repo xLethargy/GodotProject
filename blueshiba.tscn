@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bg4guqx6hq200" path="res://blueshiba.blend" id="1_wiv6d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3hwj3"]
-size = Vector3(0.76902, 2.17413, 2.67548)
+size = Vector3(0.634766, 2.18998, 2.24902)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ua0ky"]
 size = Vector3(0.704437, 0.351685, 2.60695)
@@ -20,7 +20,7 @@ script = ExtResource("1_8x6wy")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="PlayerKillerDetection" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00208664, 0, 0.338)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00208664, -0.00792456, 0.338)
 shape = SubResource("BoxShape3D_3hwj3")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
@@ -35,6 +35,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661424, 0.328147)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SquashZone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00538635, 0.324158, 0.0169296)
 shape = SubResource("BoxShape3D_ua0ky")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.235294, 0.882353, 0.819608, 1)
+light_energy = 5.0
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
 [connection signal="timeout" from="ShibaJumperTimer" to="." method="_on_shiba_jumper_timer_timeout"]

@@ -37,5 +37,10 @@ monitorable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00250244, 3.10707, 0.205719)
 shape = SubResource("BoxShape3D_s63k2")
 
+[node name="BearSpinnerTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
 [connection signal="body_entered" from="SquashZone" to="." method="_on_squash_zone_body_entered"]
+[connection signal="timeout" from="BearSpinnerTimer" to="." method="_on_bear_spinner_timer_timeout"]

@@ -1,14 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://1q8cde853u17"]
+[gd_scene load_steps=11 format=3 uid="uid://1q8cde853u17"]
 
 [ext_resource type="PackedScene" uid="uid://chgaakiv1m7e6" path="res://character.tscn" id="1_aav20"]
 [ext_resource type="Script" path="res://GameScene.gd" id="1_vmna7"]
+[ext_resource type="Shader" path="res://VHS.gdshader" id="3_uolon"]
 [ext_resource type="Script" path="res://ScoreLabel.gd" id="3_wdr1p"]
+[ext_resource type="AudioStream" uid="uid://daif753uvpaho" path="res://France's Most Stereotypical Music.mp3" id="4_uo0ea"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_phlkt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ae57g"]
+shader = ExtResource("3_uolon")
+shader_parameter/tape_wave_amount = 0.003
+shader_parameter/tape_crease_amount = 2.5
+shader_parameter/color_displacement = 1.0
+shader_parameter/lines_velocity = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idn3t"]
 albedo_color = Color(0.686275, 0.160784, 0.133333, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_md64v"]
-material = SubResource("StandardMaterial3D_phlkt")
+material = SubResource("StandardMaterial3D_idn3t")
 size = Vector3(50, 1, 50)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6w7n"]
@@ -68,6 +77,19 @@ text = "Press 'Enter' to retry"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ColorRect" type="ColorRect" parent="UserInterface"]
+visible = false
+material = SubResource("ShaderMaterial_ae57g")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 collision_layer = 4
@@ -111,5 +133,11 @@ rotation_mode = 4
 wait_time = 0.5
 autostart = true
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_uo0ea")
+volume_db = -5.0
+autoplay = true
+
+[connection signal="gold_score" from="UserInterface/ScoreLabel" to="." method="_on_score_label_gold_score"]
 [connection signal="hit" from="Frog" to="." method="_on_frog_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

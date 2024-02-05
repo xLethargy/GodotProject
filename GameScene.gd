@@ -1,13 +1,23 @@
 extends Node
 
-@export var monster_scene = preload("res://monster.tscn")
-@export var shiba_scene = preload("res://blueshiba.tscn")
-@export var bear_scene = preload("res://bear.tscn")
+var monster_scene = preload("res://monster.tscn")
+var shiba_scene = preload("res://blueshiba.tscn")
+var bear_scene = preload("res://bear.tscn")
 
 var shiba_jump_time = false
 
+var menu = "res://main_menu.tscn"
+
 func _ready():
 	randomize()
+	
+	$AudioStreamPlayer.stream = Global.music_stream
+	$AudioStreamPlayer.play(Global.music_progress)
+	
+	if Global.lofi_mode == true:
+		$UserInterface/ColorRect.visible = true
+	
+	
 
 func _on_mob_timer_timeout():
 	var monster = monster_scene.instantiate()
@@ -32,6 +42,10 @@ func _on_frog_hit():
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_accept") and $UserInterface/Retry.visible:
 		get_tree().reload_current_scene()
+		Global.music_progress = $AudioStreamPlayer.get_playback_position()
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().call_deferred("change_scene_to_file", menu)
+		Global.music_progress = $AudioStreamPlayer.get_playback_position()
 		
 
 func _intialise_and_add(enemy):
@@ -45,3 +59,8 @@ func _intialise_and_add(enemy):
 	enemy.initialise(enemy_spawn_location.position, player_position)
 	
 	add_child(enemy)
+
+
+func _on_score_label_gold_score():
+	$Frog.change_material()
+	

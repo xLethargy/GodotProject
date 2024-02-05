@@ -31,7 +31,7 @@ func _physics_process(delta):
 		direction = direction.normalized()
 		
 		# smooth rotation
-		$Pivot.rotation.y = lerp_angle($Pivot.rotation.y, atan2( -direction.x , -direction.z), delta * rotation_speed)
+		self.rotation.y = lerp_angle(self.rotation.y, atan2( -direction.x , -direction.z), delta * rotation_speed)
 	
 	velocity.x = direction.x * speed
 	velocity.z = direction.z * speed
@@ -43,8 +43,7 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func _on_area_3d_body_entered(_body):
-	die()
+
 
 func die():
 	emit_signal("hit")
@@ -53,3 +52,11 @@ func die():
 func _on_squash_detection_body_entered(body):
 	if body != null and body.is_in_group("monster"):
 		velocity.y = bounce_impulse
+
+func change_material():
+	var gold = preload("res://gold.tres")
+	%Body.set_surface_override_material(0, gold)
+
+
+func _on_hitbox_detection_body_entered(_body):
+	die()
